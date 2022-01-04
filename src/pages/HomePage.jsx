@@ -1,10 +1,7 @@
-import React from 'react'
+import React, {useContext, useState}from 'react'
 import Heading1 from '../components/Heading1'
 import Input from '../components/Input'
-import { useState} from 'react'
 import { Link, useNavigate} from 'react-router-dom'
-import UserDetail from '../components/UserDetail'
-import { useContext, useEffect } from 'react/cjs/react.development'
 import { DataContext } from '../App'
 export default function HomePage() {
     const Navigation = useNavigate()
@@ -20,7 +17,8 @@ export default function HomePage() {
         data,
         setData,
         list,
-        setList
+        setList,
+        fetchData
     } = useContext(DataContext)
     function handleOnSubmit(e){
         e.preventDefault()
@@ -44,12 +42,13 @@ export default function HomePage() {
             },
             body: JSON.stringify(payload)
         })
+        .then(res => fetchData())
         }
         
         return (
         <div>
             <Heading1 text="Hello world" />
-            <UserDetail />
+            <p>{data.firstName} {data.lastName} {data.email}</p>
             <form onSubmit={handleOnSubmit}>
             <Input type="text" placeholder="name" value={name} setValue={setName}/>
             <Input type="text" placeholder="organisationNr" value={organisationNr} setValue={setorganisationNr}/>
@@ -63,12 +62,7 @@ export default function HomePage() {
             </form>
             {list ? list.map((item, index ) => {
                 return <p key={index}>
-                    {console.log(item)}
                     <Link to={`/home/${item.id}`}>{item.name}</Link>
-                    
-                    
-                    
-                    
                 </p>
             }) : "Laddar"}
         </div>

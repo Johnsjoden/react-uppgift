@@ -12,9 +12,15 @@ export default function Input({type, placeholder, value, setValue}) {
         onChange={e => setValue(e.target.value)}
         />
     }
+    function renderLabel(placeholder, value){
+        return <label htmlFor={value}>
+            {placeholder}
+        </label>
+    }
     return (
         <div>
-            {renderInput(type=type, placeholder=placeholder, value=value, setValue=setValue)}
+            {renderLabel(placeholder, value)}
+            {renderInput(type, placeholder, value, setValue)}
         </div>
     )
 }

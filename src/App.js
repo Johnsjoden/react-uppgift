@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     fetchData()
-  },[list])
+  },[])
   function fetchData(){
     const url = "https://frebi.willandskill.eu/api/v1/customers/"
     const token = localStorage.getItem("webb21")

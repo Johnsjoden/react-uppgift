@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Input from '../components/Input'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 export default function LoginPage() {
+    const navigate = useNavigate()
     const url = "https://frebi.willandskill.eu/api-token-auth/"
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
-    function handleOnSubmit(e){
-        e.preventDefault()
+    function handleOnSubmit(){
         const payload = {
         email,
         password
@@ -20,8 +20,8 @@ export default function LoginPage() {
     .then(data => {
         const token = data.token
         localStorage.setItem("webb21", token)
-        console.log(token)
     })
+    .then( navigate("/home"))
     }
     return (
         <div>
